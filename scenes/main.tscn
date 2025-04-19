@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://mqxtcfiujjhp"]
+
+[ext_resource type="Script" path="res://scripts/deck_manager..gd" id="1_vsevq"]
+[ext_resource type="PackedScene" uid="uid://dm52xmkljlp4r" path="res://scenes/player.tscn" id="2_cpm1o"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="DeckManager" type="Node" parent="."]
+script = ExtResource("1_vsevq")
+
+[node name="Player1" parent="." instance=ExtResource("2_cpm1o")]
+
+[node name="Player2" parent="." instance=ExtResource("2_cpm1o")]
+is_horizontal = false
+
+[node name="Player3" parent="." instance=ExtResource("2_cpm1o")]
+
+[node name="Player4" parent="." instance=ExtResource("2_cpm1o")]
+is_horizontal = false
