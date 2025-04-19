@@ -7,6 +7,7 @@ var deck: Array[Node2D] = []
 @onready var card_data = CardData.new()
 @onready var PlayerScene = preload("res://scenes/player.tscn")
 var players: Array = []
+var current_player = 0
 
 func _ready():
 	print("DeckManager is ready")
@@ -53,7 +54,6 @@ func position_players():
 		player.is_horizontal = i % 2 == 0
 
 func deal_cards():
-	var current_player = 0
 	for card in deck:
 		if current_player == 0:
 			card.flip(true)
@@ -61,3 +61,11 @@ func deal_cards():
 			card.flip(false)
 		players[current_player].add_card(card)
 		current_player = (current_player + 1) % 4
+
+func _process(delta):
+	if Input.is_action_just_pressed("ui_accept"):  # default Enter key
+		print('asdfasfdasf')
+		if current_player == 0:
+			var card = players[0].play_selected_card($PlayArea)
+			if card:
+				current_player = 1  # Move to next player (basic for now)

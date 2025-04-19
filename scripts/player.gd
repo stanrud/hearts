@@ -18,3 +18,13 @@ func layout_hand():
 			card.position = Vector2(i * spacing, 0)
 		else:
 			card.position = Vector2(0, i * spacing)
+
+func play_selected_card(play_area: Node2D):
+	for card in hand.get_children():
+		if card.is_selected:
+			card.is_selected = false
+			card.position = Vector2.ZERO
+			hand.remove_child(card)
+			play_area.add_child(card)
+			return card  # Return the played card
+	return null
