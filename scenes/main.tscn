@@ -1,22 +1,191 @@
-[gd_scene load_steps=3 format=3 uid="uid://mqxtcfiujjhp"]
+[gd_scene load_steps=10 format=3 uid="uid://60bwveuu2rt"]
 
-[ext_resource type="Script" path="res://scripts/deck_manager..gd" id="1_vsevq"]
-[ext_resource type="PackedScene" uid="uid://dm52xmkljlp4r" path="res://scenes/player.tscn" id="2_cpm1o"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_c1qle"]
+[ext_resource type="Texture2D" uid="uid://bky4y0p3fdoul" path="res://assets/images/bg.jpg" id="2_3nurs"]
+[ext_resource type="PackedScene" uid="uid://c7u8hryloq7hy" path="res://addons/card-framework/card_manager.tscn" id="3_7aek8"]
+[ext_resource type="Texture2D" uid="uid://djoauv24lbkhc" path="res://assets/images/cards2/cardBack_blue1.png" id="4_njwwq"]
+[ext_resource type="PackedScene" uid="uid://dk6rb7lhv1ef6" path="res://addons/card-framework/pile.tscn" id="5_2ff06"]
+[ext_resource type="Texture2D" uid="uid://cv6ecvmkml3ok" path="res://assets/images/cards2/cardBack_green1.png" id="6_5lo4q"]
+[ext_resource type="Texture2D" uid="uid://bdf2cukmms3nb" path="res://assets/images/cards2/cardBack_red3.png" id="7_udct2"]
+[ext_resource type="Texture2D" uid="uid://b1jy1scbarbg5" path="res://assets/images/cards2/cardBack_red4.png" id="8_frqtl"]
+[ext_resource type="PackedScene" uid="uid://bkpjlq7ggckg6" path="res://addons/card-framework/hand.tscn" id="9_u6n8f"]
 
-[node name="Game" type="Node2D"]
+[node name="Game" type="Node"]
+script = ExtResource("1_c1qle")
 
-[node name="DeckManager" type="Node" parent="."]
-script = ExtResource("1_vsevq")
+[node name="Background" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(500, 882)
+rotation = 1.57079
+scale = Vector2(0.536571, 0.536571)
+texture = ExtResource("2_3nurs")
 
-[node name="Player1" parent="." instance=ExtResource("2_cpm1o")]
+[node name="ButtonContainer" type="HBoxContainer" parent="."]
+visible = false
+offset_left = 100.0
+offset_top = 100.0
+offset_right = 200.0
+offset_bottom = 140.0
 
-[node name="Player2" parent="." instance=ExtResource("2_cpm1o")]
-is_horizontal = false
+[node name="ButtonColumnContainer1" type="VBoxContainer" parent="ButtonContainer"]
+layout_mode = 2
 
-[node name="Player3" parent="." instance=ExtResource("2_cpm1o")]
+[node name="Draw1Button" type="Button" parent="ButtonContainer/ButtonColumnContainer1"]
+layout_mode = 2
+text = "draw 1"
 
-[node name="Player4" parent="." instance=ExtResource("2_cpm1o")]
-is_horizontal = false
+[node name="Draw3Button" type="Button" parent="ButtonContainer/ButtonColumnContainer1"]
+layout_mode = 2
+text = "draw 3"
 
-[node name="PlayArea" type="Node2D" parent="."]
-position = Vector2(540, 960)
+[node name="ResetDeckButton" type="Button" parent="ButtonContainer/ButtonColumnContainer1"]
+layout_mode = 2
+text = "reset deck"
+
+[node name="UndoButton" type="Button" parent="ButtonContainer/ButtonColumnContainer1"]
+layout_mode = 2
+text = "undo"
+
+[node name="ShuffleHandButton" type="Button" parent="ButtonContainer/ButtonColumnContainer1"]
+layout_mode = 2
+text = "shuffle hand"
+
+[node name="Discard1Button" type="Button" parent="ButtonContainer/ButtonColumnContainer1"]
+layout_mode = 2
+text = "discard 1"
+
+[node name="Discard3Button" type="Button" parent="ButtonContainer/ButtonColumnContainer1"]
+layout_mode = 2
+text = "discard 3"
+
+[node name="ButtonColumnContainer2" type="VBoxContainer" parent="ButtonContainer"]
+layout_mode = 2
+
+[node name="MoveToPile1Button" type="Button" parent="ButtonContainer/ButtonColumnContainer2"]
+layout_mode = 2
+text = "move to pile1"
+
+[node name="MoveToPile2Button" type="Button" parent="ButtonContainer/ButtonColumnContainer2"]
+layout_mode = 2
+text = "move to pile2"
+
+[node name="MoveToPile3Button" type="Button" parent="ButtonContainer/ButtonColumnContainer2"]
+layout_mode = 2
+text = "move to pile3"
+
+[node name="MoveToPile4Button" type="Button" parent="ButtonContainer/ButtonColumnContainer2"]
+layout_mode = 2
+text = "move to pile4"
+
+[node name="ClearAllButton" type="Button" parent="ButtonContainer/ButtonColumnContainer2"]
+layout_mode = 2
+text = "clear all"
+
+[node name="CardManager" parent="." instance=ExtResource("3_7aek8")]
+card_asset_dir = "res://assets/images/cards2"
+card_info_dir = "res://card_info"
+back_image = ExtResource("4_njwwq")
+
+[node name="Pile1" parent="CardManager" instance=ExtResource("5_2ff06")]
+visible = false
+offset_left = -863.0
+offset_top = 882.0
+offset_right = -863.0
+offset_bottom = 882.0
+stack_display_gap = 40
+max_stack_display = 13
+card_face_up = false
+sensor_texture = ExtResource("6_5lo4q")
+
+[node name="Deck" parent="CardManager" instance=ExtResource("5_2ff06")]
+offset_left = 479.0
+offset_top = 800.0
+offset_right = 479.0
+offset_bottom = 800.0
+sensor_texture = ExtResource("7_udct2")
+
+[node name="Discard" parent="CardManager" instance=ExtResource("5_2ff06")]
+offset_left = 1600.0
+offset_top = 800.0
+offset_right = 1600.0
+offset_bottom = 800.0
+sensor_texture = ExtResource("8_frqtl")
+
+[node name="Hand" parent="CardManager" instance=ExtResource("9_u6n8f")]
+offset_left = 482.0
+offset_top = 1621.0
+offset_right = 482.0
+offset_bottom = 1621.0
+max_hand_size = 13
+max_hand_spread = 1000
+sensor_size = Vector2(500, 210)
+sensor_position = Vector2(-175, 0)
+sensor_visibility = false
+
+[node name="Hand2" parent="CardManager" instance=ExtResource("9_u6n8f")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_top = 745.0
+offset_bottom = 745.0
+grow_horizontal = 2
+max_hand_size = 13
+max_hand_spread = 500
+card_face_up = false
+layout = 0
+hand_rotation_curve = null
+hand_vertical_curve = null
+sensor_size = Vector2(500, 210)
+sensor_position = Vector2(-175, 0)
+sensor_visibility = false
+
+[node name="Hand3" parent="CardManager" instance=ExtResource("9_u6n8f")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 500.0
+offset_right = 500.0
+grow_horizontal = 2
+max_hand_size = 13
+max_hand_spread = 500
+card_face_up = false
+hand_rotation_curve = null
+hand_vertical_curve = null
+sensor_size = Vector2(500, 210)
+sensor_position = Vector2(-175, 0)
+sensor_visibility = false
+
+[node name="Hand4" parent="CardManager" instance=ExtResource("9_u6n8f")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 930.0
+offset_top = 745.0
+offset_right = 930.0
+offset_bottom = 745.0
+grow_horizontal = 2
+max_hand_size = 13
+max_hand_spread = 500
+card_face_up = false
+layout = 1
+hand_rotation_curve = null
+hand_vertical_curve = null
+sensor_size = Vector2(500, 210)
+sensor_position = Vector2(-175, 0)
+sensor_visibility = false
+
+[connection signal="pressed" from="ButtonContainer/ButtonColumnContainer1/Draw1Button" to="." method="_on_draw_1_button_pressed"]
+[connection signal="pressed" from="ButtonContainer/ButtonColumnContainer1/Draw3Button" to="." method="_on_draw_3_button_pressed"]
+[connection signal="pressed" from="ButtonContainer/ButtonColumnContainer1/ResetDeckButton" to="." method="_on_reset_deck_button_pressed"]
+[connection signal="pressed" from="ButtonContainer/ButtonColumnContainer1/UndoButton" to="." method="_on_undo_button_pressed"]
+[connection signal="pressed" from="ButtonContainer/ButtonColumnContainer1/ShuffleHandButton" to="." method="_on_shuffle_hand_button_pressed"]
+[connection signal="pressed" from="ButtonContainer/ButtonColumnContainer1/Discard1Button" to="." method="_on_discard_1_button_pressed"]
+[connection signal="pressed" from="ButtonContainer/ButtonColumnContainer1/Discard3Button" to="." method="_on_discard_3_button_pressed"]
+[connection signal="pressed" from="ButtonContainer/ButtonColumnContainer2/MoveToPile1Button" to="." method="_on_move_to_pile_1_button_pressed"]
+[connection signal="pressed" from="ButtonContainer/ButtonColumnContainer2/MoveToPile2Button" to="." method="_on_move_to_pile_2_button_pressed"]
+[connection signal="pressed" from="ButtonContainer/ButtonColumnContainer2/MoveToPile3Button" to="." method="_on_move_to_pile_3_button_pressed"]
+[connection signal="pressed" from="ButtonContainer/ButtonColumnContainer2/MoveToPile4Button" to="." method="_on_move_to_pile_4_button_pressed"]
+[connection signal="pressed" from="ButtonContainer/ButtonColumnContainer2/ClearAllButton" to="." method="_on_clear_all_button_pressed"]
